@@ -15,35 +15,34 @@ class $namespace$ extends FnNamespace {
       ${register("$function$", $function$FnDef)}::,::function$
       )
       .withSerializers(
-      ${classOf[$function$inputType]}::,::function$
+      ${classOf[$function$InputType]}::,::function$
       )
 
   override def initialState: State = $namespace$State
 
   override def onPersist: EventHandler[State] = {
-    ${case ($function$inputType(_), $namespace$State(_)) => $namespace$State(_)}::\n::function$
+    ${case ($function$InputType(_), $namespace$State(_)) => $namespace$State(_)}::\n::function$
     case (_, state)                                => state // Do nothing with the State
   }
+  
 
-  ${def $function$FnDef = FnDescriptor2[$function$inputType, $function$outputType, $namespace$State] {
-    (req, ctx, state) =>
-      ctx.actions.onRequest[$function$inputType, $function$outputType, $namespace$State] {
-        case ($function$inputType(_), ctx, state) =>
-          //processing
-          ctx.thenPersist($function$outputType(_)) {
-            response: $function$outputType =>
-              // post persist actions
-              ctx.returnWith(response)
-          }
-      }
-  }}::\n::function$
+  ${def $function$FnDef(input: $function$InputType, ctx: ExecutionContext[$function$OutputType], state: $namespace$State): Directive = {
+    
+    // Your business logic here
+
+    ctx.thenPersist($function$OutputType(_)) {
+      response: $function$OutputType ⇒
+        ctx.returnWith(response)
+    }
+  }
+  }::\n::funtion$
 
 }
 
 object $namespace$ {
   ${
-  case class $function$inputType(_) extends FnRequest
-  case class $function$outputType(_) extends FnResponse
+  case class $function$InputType(_) extends FnRequest
+  case class $function$OutputType(_) extends FnResponse
   }::\n::function$
 
   case class $namespace$State(_) extends ManagedState // Define members of state here, use them in the onPersist handler
