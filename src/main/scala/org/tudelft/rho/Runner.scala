@@ -19,7 +19,6 @@ object Runner extends Logging {
     val paramterTool = ParameterTool.fromArgs(args)
 
     val bootstrapServer = paramterTool.getRequired("bootstrap.servers")
-    val zookeeper       = paramterTool.getRequired("zookeeper.connect")
     logger.info("kafka Servers $bootstrapServer")
     logger.info("Zookeeper Servers zookeeper")
 
