@@ -28,7 +28,7 @@ class $namespace$ extends FnNamespace {
   }
   
 
-  ${def $function$(input: $function-input$, ctx: ExecutionContext[$function-output$], state: $namespace$State): Fn[$function-output$] = {
+  ${def $function$($function-input-binding$: $function-input$, ctx: ExecutionContext[$function-output$], state: $namespace$State): Fn[$function-output$] = {
     $function-business-logic$  
   }
   }::\n::function$
