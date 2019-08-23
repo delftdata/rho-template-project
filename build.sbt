@@ -17,7 +17,8 @@ val flinkVersion = "1.8.1"
 val flinkDependencies = Seq(
   "org.apache.flink" %% "flink-scala" % flinkVersion % "provided",
   "org.apache.flink" %% "flink-streaming-scala" % flinkVersion % "provided",
-  "org.tudelft.serverless" %% "rho" % "0.1-SNAPSHOT"
+  "org.tudelft.serverless" %% "runtime" % "0.1-SNAPSHOT",
+  "org.tudelft.serverless" %% "core" % "0.1-SNAPSHOT"
   )
 
 lazy val root = (project in file(".")).

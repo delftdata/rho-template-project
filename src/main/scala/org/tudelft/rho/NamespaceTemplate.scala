@@ -1,9 +1,11 @@
 package org.tudelft.rho
 
-import org.tudelft.rho.api.domain._
 import org.tudelft.rho.api.fn._
-import org.tudelft.rho.api.fn.FnNamespace._
+import org.tudelft.rho.api.domain._
+import org.tudelft.rho.api.fn.api.EventHandler
+import org.tudelft.rho.api.fn.fnInterpreter.λ
 import org.tudelft.rho.$namespace$._
+import org.tudelft.rho.api.ExceptionMessage
 
 class $namespace$ extends FnNamespace {
 
@@ -12,28 +14,22 @@ class $namespace$ extends FnNamespace {
   override def descriptor: FnNamespaceDescriptor =
     named("$namespace$")
       .withQualifiedPaths(
-      ${register("$function$", $function$FnDef)}::,::function$
+      ${register("$function$", $function$) _}::,::function$
       )
-      .withSerializers(
-      ${classOf[$function$InputType]}::,::function$
+      .withSerializers(classOf[CallbackRequestEnv],, classOf[LogMessage], classOf[ExceptionMessage],
+      ${classOf[$function-input$]}::,::function$
       )
 
-  override def initialState: State = $namespace$State
+  override def initialState: State = $namespace$State($initial-state$)
 
   override def onPersist: EventHandler[State] = {
-    ${case ($function$InputType(_), $namespace$State(_)) => $namespace$State(_)}::\n::function$
+    ${case ($function-output$($output-var-bindings$), $namespace$State($curr-state$)) => $namespace$State($state-update$)}::\n::function$
     case (_, state)                                => state // Do nothing with the State
   }
   
 
-  ${def $function$FnDef(input: $function$InputType, ctx: ExecutionContext[$function$OutputType], state: $namespace$State): Directive = {
-    
-    // Your business logic here
-
-    ctx.thenPersist($function$OutputType(_)) {
-      response: $function$OutputType ⇒
-        ctx.returnWith(response)
-    }
+  ${def $function$(input: $function-input$, ctx: ExecutionContext[$function-output$], state: $namespace$State): λ[$function-output$] = {
+    $function-business-logic$  
   }
   }::\n::function$
 
@@ -41,11 +37,11 @@ class $namespace$ extends FnNamespace {
 
 object $namespace$ {
   ${
-  case class $function$InputType(_) extends FnRequest
-  case class $function$OutputType(_) extends FnResponse
+  case class $function-input$($function-input-def$) extends FnRequest
+  case class $function-output$($function-output-def$) extends FnResponse
   }::\n::function$
 
-  case class $namespace$State(_) extends ManagedState // Define members of state here, use them in the onPersist handler
+  case class $namespace$State($state-def$) extends ManagedState // Define members of state here, use them in the onPersist handler
 
   type State = $namespace$#State
 }
