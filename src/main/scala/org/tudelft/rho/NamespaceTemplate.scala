@@ -35,7 +35,7 @@ class $namespace$ extends FnNamespace {
         ctx.returnWith(response)
     }
   }
-  }::\n::funtion$
+  }::\n::function$
 
 }
 
