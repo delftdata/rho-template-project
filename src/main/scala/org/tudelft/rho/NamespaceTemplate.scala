@@ -3,7 +3,7 @@ package org.tudelft.rho
 import org.tudelft.rho.api.fn._
 import org.tudelft.rho.api.domain._
 import org.tudelft.rho.api.fn.api.EventHandler
-import org.tudelft.rho.api.fn.fnInterpreter.λ
+import org.tudelft.rho.api.fn.fnInterpreter._
 import org.tudelft.rho.$namespace$._
 import org.tudelft.rho.api.ExceptionMessage
 
@@ -14,7 +14,7 @@ class $namespace$ extends FnNamespace {
   override def descriptor: FnNamespaceDescriptor =
     named("$namespace$")
       .withQualifiedPaths(
-      ${register("$function$", $function$) _}::,::function$
+      ${register("$function$", $function$ _ ) }::,::function$
       )
       .withSerializers(classOf[CallbackRequestEnv], classOf[LogMessage], classOf[ExceptionMessage],
       ${classOf[$function-input$]}::,::function$
@@ -28,7 +28,7 @@ class $namespace$ extends FnNamespace {
   }
   
 
-  ${def $function$(input: $function-input$, ctx: ExecutionContext[$function-output$], state: $namespace$State): λ[$function-output$] = {
+  ${def $function$(input: $function-input$, ctx: ExecutionContext[$function-output$], state: $namespace$State): Fn[$function-output$] = {
     $function-business-logic$  
   }
   }::\n::function$
