@@ -16,7 +16,7 @@ class $namespace$ extends FnNamespace {
       .withQualifiedPaths(
       ${register("$function$", $function$) _}::,::function$
       )
-      .withSerializers(classOf[CallbackRequestEnv],, classOf[LogMessage], classOf[ExceptionMessage],
+      .withSerializers(classOf[CallbackRequestEnv], classOf[LogMessage], classOf[ExceptionMessage],
       ${classOf[$function-input$]}::,::function$
       )
 
