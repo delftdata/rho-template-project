@@ -11,12 +11,11 @@ object Runner extends Logging {
     val paramterTool = ParameterTool.fromArgs(args)
 
     val environment: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
-   
+
     val fnNamespace = new $namespace$()
 
     val fnRunner = new FnFlinkRunnerWithKeyedSchema(fnNamespace, Some(paramterTool.getProperties))
 
-    fnRunner.buildGraph(environment).execute()
+    fnRunner.buildGraph(environment).execute(fnNamespace.descriptor.name)
   }
 }
-
