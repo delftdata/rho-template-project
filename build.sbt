@@ -4,20 +4,21 @@ ThisBuild / resolvers ++= Seq(
   Resolver.mavenLocal
 )
 
-name := "StatefulMapperJob"
+name := "$namespace$"
 
 version := "0.1-SNAPSHOT"
 
-organization := "org.tudelft.delta"
+organization := "org.tudelft.rho"
 
-ThisBuild / scalaVersion := "2.11.8"
+ThisBuild / scalaVersion := "2.12.8"
 
-val flinkVersion = "1.6-SNAPSHOT"
+val flinkVersion = "1.8.1"
 
 val flinkDependencies = Seq(
   "org.apache.flink" %% "flink-scala" % flinkVersion % "provided",
   "org.apache.flink" %% "flink-streaming-scala" % flinkVersion % "provided",
- 	"org.apache.flink" %% "flink-connector-kafka-0.11" % flinkVersion
+  "org.tudelft.serverless" %% "runtime" % "0.1-SNAPSHOT",
+  "org.tudelft.serverless" %% "core" % "0.1-SNAPSHOT"
   )
 
 lazy val root = (project in file(".")).
@@ -25,7 +26,7 @@ lazy val root = (project in file(".")).
     libraryDependencies ++= flinkDependencies
   )
 
-assembly / mainClass := Some("org.tudelft.delta.BenchmarkMapper")
+assembly / mainClass := Some("org.tudelft.rho.Runner")
 
 // make run command include the provided dependencies
 Compile / run  := Defaults.runTask(Compile / fullClasspath,
